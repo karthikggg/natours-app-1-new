@@ -1,11 +1,22 @@
 const asyncCatch = require('../utils/asyncCatch');
 const Tour = require('../modules/tourModule');
-const stripe = require('stripe')(process.env.STRIPE_SECRET_ID);
+// Initialize Stripe only if the secret key is available (production or dev with env vars set)
+const stripe = process.env.STRIPE_SECRET_ID 
+  ? require('stripe')(process.env.STRIPE_SECRET_ID) 
+  : null;
 const User = require('../modules/userModule')
 const Booking = require('../modules/bookingModule')
 
 
 exports.checkoutSession = asyncCatch(async (req, res, next) => {
+  // Check if Stripe is initialized
+  if (!stripe) {
+    return res.status(500).json({
+      status: 'error',
+      message: 'Stripe is not configured. Please set STRIPE_SECRET_ID environment variable.'
+    });
+  }
+  
   // 1.get currently booking tour
   const tour = await Tour.findById(req.params.tourID);
   console.log( tour+  '$$$$$$$$#######################');
