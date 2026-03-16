@@ -22,6 +22,17 @@ app.use(express.static(`${__dirname}/public`));
 app.use(cookiesParser())
 app.use(express.urlencoded({extended:true}))
 
+// Enable CORS for all origins (for development/production)
+app.use((req, res, next) => {
+  res.header('Access-Control-Allow-Origin', '*');
+  res.header('Access-Control-Allow-Methods', 'GET, POST, PUT, PATCH, DELETE, OPTIONS');
+  res.header('Access-Control-Allow-Headers', 'Content-Type, Authorization, X-Requested-With');
+  if (req.method === 'OPTIONS') {
+    return res.sendStatus(200);
+  }
+  next();
+});
+
 
 app.set('view engine', 'pug');
 app.set('views', path.join(__dirname, 'views'));

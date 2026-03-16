@@ -16,7 +16,9 @@ export const loginFuction = async (email, password) => {
     }
   } catch (error) {
     console.log('ERROR STACK:', error.response?.data);
-    showAlert('error','password or email is incorrecttttt😮');
+    console.log('Full error:', error);
+    const serverMsg = error.response?.data?.message || error.message || 'Unknown error';
+    showAlert('error', `Login failed: ${serverMsg}`);
   }
 };
 
@@ -26,7 +28,7 @@ export const logoutFuction = async ()=>{
     try {
     const res = await axios({
       method: 'GET',
-      url: 'http://127.0.0.1:3000/api/v1/user/logout',
+      url: '/api/v1/user/logout',
     });
     if (res.data.status == 'success') {
       showAlert('success' , 'logged out in succesfully')
