@@ -12,6 +12,8 @@ export const signUpFunction = async (name, email, password, passwordConfirm) => 
         passwordConfirm,
       },
     });
+    console.log('Signup response:', res.data);
+    console.log('Status:', res.data.status);
     if (res.data.status === 'success') {
       showAlert('success', 'Account created successfully! Logging you in...');
       window.setTimeout(() => {
