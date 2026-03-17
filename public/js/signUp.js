@@ -12,9 +12,11 @@ export const signUpFunction = async (name, email, password, passwordConfirm) => 
         passwordConfirm,
       },
     });
-    if (res.data.status == 'success') {
+    if (res.data.status === 'success') {
       showAlert('success', 'Account created successfully! Logging you in...');
-      window.location.assign('/');
+      window.setTimeout(() => {
+        window.location.assign('/');
+      }, 1500);
     }
   } catch (error) {
     console.log('ERROR STACK:', error.response?.data);
