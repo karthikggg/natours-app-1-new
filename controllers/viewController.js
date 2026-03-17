@@ -32,7 +32,7 @@ exports.loginPage = (req, res , next) =>{
   res.status(200).render('login')
 }
 exports.signInPage = (req, res , next) =>{
-  res.status(200).render('SignIn')
+  res.status(200).render('signIn')
 }
 
 
