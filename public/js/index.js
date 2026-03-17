@@ -1,5 +1,6 @@
 console.log('hello from parcel');
 import { loginFuction, logoutFuction } from './login';
+import { signUpFunction } from './signUp';
 import { updateSettings } from './updateSettings';
 import { bookTour } from './stripe'
 const loginForm = document.querySelector('.form--login');
@@ -7,7 +8,18 @@ const logout = document.querySelector('.nav__el--logout');
 const updateSetting = document.querySelector('.form-user-data');
 const updatePassword = document.querySelector('.form-user-password');
 const booking = document.getElementById('book-tour')
+const signin = document.querySelector('.form--signup')
 
+if(signin){
+  signin.addEventListener('submit' , (e)=>{
+    e.preventDefault()
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const password = document.getElementById('password').value;
+    const passwordConfirm = document.getElementById('passwordConfirm').value;
+    signUpFunction(name, email, password, passwordConfirm);
+  })
+}
 if (loginForm) {
   loginForm.addEventListener('submit', (e) => {
     e.preventDefault();

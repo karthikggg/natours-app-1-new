@@ -1,6 +1,6 @@
-// Load local env file for development and local testing.
-// Skip on Railway (where RAILWAY is set by the platform) to use platform-provided env vars.
-if (!process.env.RAILWAY) {
+// Load local env file only in non-production environments.
+// In production (Railway) env vars should be set via the platform UI.
+if (process.env.NODE_ENV !== 'production') {
   const dotenv = require('dotenv');
   dotenv.config({ path: './config.env' });
 }

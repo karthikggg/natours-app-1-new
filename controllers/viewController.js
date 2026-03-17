@@ -31,6 +31,10 @@ exports.getTour = asyncCatch(async (req, res, next) => {
 exports.loginPage = (req, res , next) =>{
   res.status(200).render('login')
 }
+exports.signInPage = (req, res , next) =>{
+  res.status(200).render('SignIn')
+}
+
 
 
 exports.accountPage = (req, res , next) =>{

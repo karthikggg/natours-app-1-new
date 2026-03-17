@@ -36,7 +36,6 @@ export const logoutFuction = async ()=>{
     }
   } catch (error) {
     console.log('ERROR STACK:', error.response?.data);
-    
   }
 };
   
