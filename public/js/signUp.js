@@ -12,7 +12,7 @@ export const signUpFunction = async (name, email, password, passwordConfirm) => 
         passwordConfirm,
       },
     });
-    if (res.data.status === 'success') {
+    if (res.data.status == 'success') {
       showAlert('success', 'Account created successfully! Logging you in...');
       window.location.assign('/');
     }
