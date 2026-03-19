@@ -50,10 +50,11 @@ exports.signUp = async (req, res) => {
     user: req.body.user,
   });
 // welcome email for new users
-const url = `${req.protocol}://${req.get('host')}/me`
-await new Email(user , url).sendWelcome()
+
 
   createAndSendToken(user, 200,req, res);
+//   const url = `${req.protocol}://${req.get('host')}/me`
+// await new Email(user , url).sendWelcome()
 };
 exports.login = asyncCatch(async (req, res, next) => {
   const { email, password } = req.body;
