@@ -13,15 +13,21 @@ const generateToken = (id) => {
   });
 };
 
-const createAndSendToken = (user, statuscode, res) => {
+const createAndSendToken = (user, statuscode,req,  res) => {
   const token = generateToken(user._id);
-  const cookieOptions = {
+   const cookieOptions = {
     expires: new Date(
-      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000,
+      Date.now() + process.env.JWT_COOKIE_EXPIRES_IN * 24 * 60 * 60 * 1000
     ),
     httpOnly: true,
+    sameSite: process.env.NODE_ENV === 'production' ? 'none' : 'strict', // 'none' for cross-site, 'strict' for same-site
   };
-  if (process.env.NODE_ENV === 'production') cookieOptions.secure = true;
+
+  // Handle both direct HTTPS and proxy HTTPS
+  if (process.env.NODE_ENV === 'production') {
+    cookieOptions.secure = req.secure || req.headers['x-forwarded-proto'] === 'https';
+  }
+
 
   res.cookie('jwt', token, cookieOptions);
 
@@ -47,7 +53,7 @@ exports.signUp = async (req, res) => {
 const url = `${req.protocol}://${req.get('host')}/me`
 await new Email(user , url).sendWelcome()
 
-  createAndSendToken(user, 200, res);
+  createAndSendToken(user, 200,req, res);
 };
 exports.login = asyncCatch(async (req, res, next) => {
   const { email, password } = req.body;
@@ -63,7 +69,7 @@ exports.login = asyncCatch(async (req, res, next) => {
   }
 
   // 3. if everythingis okay then send token to the client
-  createAndSendToken(user, 201, res);
+  createAndSendToken(user, 201, req,res);
 
   // here goes responce
 });
@@ -210,7 +216,7 @@ exports.resetPassword = async (req, res, next) => {
   }
 
   // 4. LOG THE USER IN , SEND JWT
-  createAndSendToken(user, 201, res);
+  createAndSendToken(user, 201, req, res);
 };
 
 exports.updatePassword = asyncCatch(async (req, res, next) => {
@@ -269,7 +275,7 @@ exports.updatePassword = asyncCatch(async (req, res, next) => {
   await user.save();
 
   // 4. log user in, send jwt
-  createAndSendToken(user, 201, res);
+  createAndSendToken(user, 201,req, res);
 });
 
 exports.logout = async (req, res, next) => {

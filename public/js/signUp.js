@@ -14,13 +14,9 @@ export const signUpFunction = async (name, email, password, passwordConfirm) => 
         password,
         passwordConfirm,
       },
+      withCredentials: true // ✅ IMPORTANT: Include cookies!
     });
     
-    console.log('✅ Response received!');
-    console.log('HTTP Status Code:', res.status);
-    console.log('Full response:', res);
-    console.log('Signup response data:', res.data);
-    console.log('Status field:', res.data.status);
     
     if (res.data.status === 'success') {
       console.log('✅ Success condition met! Redirecting...');
