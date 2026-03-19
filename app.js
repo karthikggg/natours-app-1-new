@@ -27,8 +27,7 @@ app.use(express.urlencoded({extended:true}))
 // ✅ CRITICAL: Trust Railway's proxy
 app.set('trust proxy', 1);
 
-// ... rest of your middleware
-const rateLimit = require('express-rate-limit');
+// ..
 // etc...
 
 // Enable CORS for all origins (for development/production) 
