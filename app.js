@@ -21,14 +21,13 @@ app.use(express.json());
 app.use(express.static(`${__dirname}/public`));
 app.use(cookiesParser())
 app.use(express.urlencoded({extended:true}))
-const express = require('express');
+
 
 
 // ✅ CRITICAL: Trust Railway's proxy
 app.set('trust proxy', 1);
 
 // ... rest of your middleware
-const morgan = require('morgan');
 const rateLimit = require('express-rate-limit');
 // etc...
 
