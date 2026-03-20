@@ -50,6 +50,8 @@ if (updateSetting) {
 
 if (updatePassword) {
   updatePassword.addEventListener('submit', async (e) => {
+    console.log( document.querySelector('.btn--save-password').textContent);
+    
     e.preventDefault();
         document.querySelector('.btn--save-password').textContent = 'Updating...';
 
@@ -58,7 +60,7 @@ if (updatePassword) {
     const passwordConfirm = document.getElementById('password-confirm').value;
     updateSettings({ password, newPassword, passwordConfirm }, 'password');
 
-     document.querySelector('.btn--save-password').textContent = 'Save password';
+     document.querySelector('.btn--save-password').textContent = 'Save password';      
     document.getElementById('password-current').value = '';
     document.getElementById('password').value = '';
     document.getElementById('password-confirm').value = '';

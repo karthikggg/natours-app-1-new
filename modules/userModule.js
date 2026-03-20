@@ -64,7 +64,7 @@ userSchema.pre('save', async function (next) {
 userSchema.pre('save', async function (next) {
   if (!this.isModified || this.isNew) return next();
 
-  this.passwordChangedTimeAt = Date.now() + 1000;
+  this.passwordChangedTimeAt = Date.now() - 1000;
 });
 userSchema.pre(/^find/, async function (next) {
   this.find({ active: { $ne: false } });
